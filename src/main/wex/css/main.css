@@ -1,0 +1,365 @@
+.card-header-container {
+    padding-bottom: 1em;
+    max-width: 100%;
+}
+
+.hidden-element {
+    display: block;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+.intro-info-text {
+    color: #8b254f !important;
+    font-size: 1rem;
+    text-align: justify;
+    height: 100%;
+    margin: 0 !important;
+}
+
+.wex-banner-info-holder {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-shadow: 0px 5px 4px 0px rgba(0, 0, 0, 0.35);
+    margin: 6px auto;
+    border: 2px solid #8b254f;
+    background-color: #f4f4f4 !important;
+    border-radius: 5px;
+}
+
+.wex-banner-info-icon{
+    padding: 0.50rem;
+    font-size: 24px;
+    color: #666 !important;
+}
+.top-banner {
+    position: fixed;
+    top: 0px;
+    transition: 0.5s;
+    z-index: 999;
+    border-color: #aaa;
+    border-style: solid;
+    border-width: 0px 0px 1px 0px;
+}
+
+.wex-background-body {
+    background-color: #e7e5df !important;
+}
+
+.wex-table-row-btn {
+    width:2em;
+}
+
+.wex-field-label {
+    width:4em;
+    border:0;
+}
+
+.wex-notifications-text{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.wex-notifications-body{
+    padding: 0.5em;
+}
+
+.wex-notifications-bar{
+    overflow: hidden;
+}
+
+.wex-notification-border-10 {
+    border-style:solid;
+    border-width: 0.15em;
+}
+
+.flex-grow-1 {
+    -ms-flex-positive: 1 !important;
+    flex-grow: 1 !important;
+}
+
+.wex-notifications-list {
+    z-index: 9999;
+}
+
+.wex-notifications-list-divider {
+    margin-top: .05rem;
+    margin-bottom: .05rem;
+}
+
+.wex-nav-bar-icon {
+    height:2.62em;
+    width:2.62em;
+    border-radius: 10%;
+}
+
+.wex-notifications[notification-count]:after {
+    content:attr(notification-count);
+    position:absolute;
+    top:0.3em;
+    right:0.5em;
+    font-size:.7em;
+    background-color:red;
+    color:white;
+    width:1.5em;
+    height:1.5em;
+    text-align:center;
+    line-height:1.2em;
+    border-radius:50%;
+    box-shadow:0 0 1px #333;
+    /*float:right;*/
+}
+.wcom-notifications[notification-count="0"]:after {
+    content: none;
+}
+
+.wex-notification-modal-dialog{
+    overflow-y: initial !important
+}
+.wex-notification-modal-body{
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+
+
+
+@media (min-width: 34em) {
+    .card-columns {
+        -webkit-column-count: 1;
+        -moz-column-count: 1;
+        column-count: 1;
+    }
+}
+
+@media (min-width: 48em) {
+    .card-columns {
+        -webkit-column-count: 1;
+        -moz-column-count: 1;
+        column-count: 1;
+    }
+}
+
+@media (min-width: 62em) {
+    .card-columns {
+        -webkit-column-count: 1;
+        -moz-column-count: 1;
+        column-count: 1;
+    }
+}
+
+@media (min-width: 75em) {
+    .card-columns {
+        -webkit-column-count: 1;
+        -moz-column-count: 1;
+        column-count: 1;
+    }
+}
+
+
+
+
+/* .card-block {
+    padding: 1.25rem;
+    background-color: #fff !important
+}
+*/
+
+.reportDesigner-page-title {
+    color: white;
+    font-size:180%;
+}
+
+.wex-report-designer-element {
+    cursor: move;
+    -webkit-box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.14);
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.14);
+    background-color: #fff;
+}
+
+/* offset-x | offset-y | blur-radius | spread-radius */
+.wex-current-report-designer-element {
+    -webkit-box-shadow: 0 0 10px 1px #28a74671;
+    box-shadow: 0 0 10px 1px #28a74671;
+    /* border-color: #28a74673; */
+}
+
+
+#reportDesigner-elements-toolbar li {
+    width: 8em;
+    height: 2.5em;
+}
+
+#reportDesigner-elements-toolbar div {
+    display: none;
+}
+
+.wex-report-designer-element-tileinfo {
+    display: none;
+}
+
+.wex-report-designer-element-hide {
+    display: none;
+}
+
+#reportDesigner-elements-toolbar .wex-report-designer-element-tileinfo {
+    display: inherit;
+    font-size: 90%;
+}
+
+
+.wex-report-designer-img-element {
+    width: 5em;
+    object-fit: cover;
+}
+
+.reportDesigner-section {
+    min-height: 5em;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-origin: content-box;
+}
+
+.reportDesigner-section-header {
+    background-color: rgba(170, 170, 170, 0.384);
+    background-image:url("../../../../../../jsp/com/wincomplm/wex/report/manager/images/header.svg");
+}
+
+.reportDesigner-section-body {
+    background-color: rgba(170, 170, 170, 0.151);
+    background-image: url("../../../../../../jsp/com/wincomplm/wex/report/manager/images/body.svg");
+    min-height: 10em;
+}
+
+.reportDesigner-section-footer {
+    background-color: rgba(170, 170, 170, 0.384);
+    background-image: url("../../../../../../jsp/com/wincomplm/wex/report/manager/images/footer.svg");
+}
+
+.wex-report-designer-element-hidden-properties {
+    display: none !important;
+}
+
+.reportDesigner-properties-colorpicker {
+    height: calc(2.25rem + 2px);
+}
+
+.reportDesigner-button-div {
+    justify-content: end;
+    padding-bottom: 8px;
+    display: flex;
+
+}
+.reportDesigner-button-prev {
+    margin: 0px 5px 8px 5px;
+    border-radius: 5px;
+}
+.reportDesigner-button-next {
+    margin: 0px 5px 8px 5px;
+    border-radius: 5px;
+}
+.reportDesigner-button-prev:hover {
+    background-color: #D1D1D1;
+}
+.reportDesigner-button-next:hover {
+    background-color: #D1D1D1;
+}
+
+.reportDesigner-preview-canvas {
+    width: 100%;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #bbb;
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #545b62;
+    border-color: #545b62;
+}
+
+.reportDesigner-help-icon {
+    font-size: 80%;
+    color: grey;
+    padding-left: 5px;
+}
+
+/* #reportDesigner { list-style-type: none; margin: 0; padding: 0; width: 312px; }
+#reportDesigner li { margin: 2px 2px 2px 2px;  float: left; width: 100px; height: 100px; font-size: 4em; text-align: center; }
+
+#container { width: 352px; height: 352px; } */
+
+.global-body {
+    height:100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.wex-modal-header {
+    background-color: rgba(170, 170, 170, 0.151);
+}
+
+.wex-controls-bar {
+    position: fixed;
+    top:55;
+    left:0;
+    right:0;
+    background: white;
+    z-index: 289;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.wex-spinner {
+    color:white;
+    display:none;
+}
+
+.wex-report-designer-logo {
+    height: 1.8em;
+    width: 1.8em;
+}
+
+.nav-link:hover{
+    border-color: #dee2e6 #dee2e6 #fff;
+    color: #4f4f4f;
+    background-color:white;
+
+}
+.nav-link{
+    color: #4f4f4f;
+    background-color:#f6f6f6;
+}
+.nav-link.active {
+    color: #3a3a3a;
+    background-color: #white;
+    border-color: #dee2e6 #dee2e6 #fff;
+}
+.wex-report-designer-element-value th,
+.wex-report-designer-element-value td {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.wex-report-btn {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-variable-section {
+    display: none;
+}

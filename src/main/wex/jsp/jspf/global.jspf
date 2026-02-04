@@ -1,0 +1,70 @@
+<%@ include file="pindex.jspf" %>
+<%@ include file="elements.jspf" %>
+<%@ include file="modals.jspf" %>
+
+<%@ page import="com.ptc.core.appsec.CSRFProtector"%>
+<%@ taglib uri="http://www.wincom-plm.com/taglib/wex-kernel" prefix="wex" %>
+<%@ page import="com.wincomplm.wex.kernel.api.invoke.WexInvoker"%>
+
+<%
+    String urlpath = request.getRequestURI(); // Get the full URL
+    urlpath = urlpath.substring(0,request.getRequestURI().lastIndexOf("/")); // Shorten
+    String jspath = urlpath.replace("/jsp/","/javascript/"); // Adjust to new paths
+    String csspath = urlpath.replace("/jsp/","/css/");
+    String nonce = CSRFProtector.getNonce(request.getSession());
+%>
+
+<script src="<%=jspath%>/lib/popper.min.js"></script>   
+<script src="<%=jspath%>/lib/jquery-3.6.0.min.js"></script>   
+<script src="<%=jspath%>/lib/jquery-ui.min.js"></script>   
+<script src="<%=jspath%>/lib/bootstrap.min.js"></script>   
+<script src="<%=jspath%>/lib/bootstrap4-toggle.min.js"></script>  
+<script src="<%=jspath%>/lib/datatables.min.js"></script>   
+<script src="<%=jspath%>/lib/dataTables.select.min.js"></script>
+<script src="<%=jspath%>/lib/jBox.all.min.js<%=PINDEX%>"></script>
+
+
+<script src="<%=jspath%>/tableUtils.js<%=PINDEX%>"></script>
+<script src="<%=jspath%>/main.js<%=PINDEX%>"></script> 
+
+<link href="<%=csspath%>/lib/bootstrap.min.css<%=PINDEX%>" rel="stylesheet">
+<link href="<%=csspath%>/lib/bootstrap4-toggle.min.css<%=PINDEX%>" rel="stylesheet">
+<link href="<%=csspath%>/lib/datatables.min.css<%=PINDEX%>" rel="stylesheet">
+<link href="<%=csspath%>/lib/fa/css/all.min.css<%=PINDEX%>" rel="stylesheet">
+<link href="<%=csspath%>/lib/jquery-ui.min.css<%=PINDEX%>" rel="stylesheet">
+<link href="<%=csspath%>/lib/jquery-ui.structure.min.css<%=PINDEX%>" rel="stylesheet">
+<link href="<%=csspath%>/lib/jquery-ui.theme.min.css<%=PINDEX%>" rel="stylesheet">
+<link href="<%=csspath%>/lib/jBox.all.min.css<%=PINDEX%>" rel="stylesheet">
+<link href="<%=csspath%>/main.css<%=PINDEX%>" rel="stylesheet">
+
+<input type="hidden" id="CSRF_NONCE" name="CSRF_NONCE" value="<%=nonce%>"/>
+
+<div class="wex-data-manager-page wex-background-body global-body">
+    <div class="wex-body">
+        <nav class="navbar navbar-dark bg-dark bd-navbar">
+            <div class="d-flex align-middle">
+                <!-- logo -->
+                <a class="navbar-brand mr-0 mr-md-2" aria-label="Bootstrap">
+                    <img class="wex-report-designer-logo" src="images/logo.png" style="margin-left: 16px"/>
+                </a>
+
+                <%-- Title --%>
+                <div class="reportDesigner-page-title ml-2 mr-2">License Report</div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="wex-body m-4">
+        <table id="licenses-data-table" class="display compact nowrap table table-striped table-hover" style="width:100%">   
+            <thead>
+                <tr> 
+                    <th>id</th> 
+                    <th>User</th> 
+                    <th>Group</th>
+                </tr> 
+            </thead> 
+            <tbody>                             
+            </tbody> 
+        </table>
+    </div>
+</div>

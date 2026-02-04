@@ -2,9 +2,9 @@
     <meta>
         <group-id>com.wincomplm</group-id>   
         <artifact-id>wex-license-report</artifact-id>
-        <display-name>Display name here</display-name>
+        <display-name>License Report</display-name>
         <system>false</system>   
-        <description>Description here</description>
+        <description>License Report</description>
     </meta>
    <build>
         <version>
@@ -17,6 +17,16 @@
             <release>${wex.wt}</release>
         </host>
     </build>
+    
+    <install>
+        <menus>
+            <extension menu="header actions" file="navigation-actionModels" action="licenseReport"/>
+        </menus>
+        <actions>
+            <page name="licenseReport" url="manager.jsp"/>  
+        </actions>
+    </install>
+    
     <additional>
         <trial/>
         <timestamp>0</timestamp>
