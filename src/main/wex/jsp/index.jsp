@@ -2,7 +2,7 @@
     <head>
         <title>License Report</title>
     </head>
-    <body class="wex-background-body">
+    <body>
         <%@include file="jspf/global.jspf" %>
     </body>
 </html>
