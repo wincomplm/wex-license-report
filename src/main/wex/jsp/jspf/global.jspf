@@ -45,7 +45,7 @@
             <div class="d-flex align-middle">
                 <!-- logo -->
                 <a class="navbar-brand mr-0 mr-md-2" aria-label="Bootstrap">
-                    <img class="wex-report-designer-logo" src="images/logo.png" style="margin-left: 16px"/>
+                    <img class="wex-report-designer-logo" src="images/ptc_color.svg" style="margin-left: 16px"/>
                 </a>
 
                 <%-- Title --%>
@@ -54,17 +54,30 @@
         </nav>
     </div>
 
-    <div class="wex-body m-4">
-        <table id="licenses-data-table" class="display compact nowrap table table-striped table-hover" style="width:100%">   
-            <thead>
-                <tr> 
-                    <th>id</th> 
-                    <th>User</th> 
-                    <th>Group</th>
-                </tr> 
-            </thead> 
-            <tbody>                             
-            </tbody> 
-        </table>
+    <div class="card-body">   
+        <div class="card wex-body m-4">
+            <div class="card-body">   
+                <div class="container card-header-container">
+                    <div class="row justify-content-between align-items-center">
+                        <h4 class="col-auto pl-0">License Group Report</h4>
+                    </div>
+                </div>
+
+                <table id="licenses-data-table" class="display compact nowrap table table-striped table-hover" style="width:100%">   
+                    <thead>
+                        <tr> 
+                            <th>id</th> 
+                            <th>Group Name</th> 
+                            <th>Total License Count</th>
+                            <th>Members</th>
+                            <th>Remaining License Count</th>
+                            <th>Context (container)</th>
+                        </tr> 
+                    </thead> 
+                    <tbody>                             
+                    </tbody> 
+                </table>
+            </div>
+        </div>
     </div>
 </div>

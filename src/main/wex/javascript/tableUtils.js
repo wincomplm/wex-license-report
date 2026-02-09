@@ -1,18 +1,5 @@
 var tableUtils = {
 
-    addTemplateTableRow: function (id, rowData) {
-        var dt = $("#" + id).DataTable();
-        var colid = dt.column('Actions:name').index();
-        var actions = rowData[colid];
-        rowData[colid] = "";
-        var row = dt.row.add(rowData);
-        var rowInd = row.index();
-        var node = dt.cell(rowInd, colid).node();
-        $(node).append(actions);
-        dt.draw();
-        return row;
-    },
-
     addTableData: function (id, data) {
         var dt = $("#" + id).DataTable();
         dt.clear();
@@ -25,37 +12,20 @@ var tableUtils = {
         dt.draw();
     },
 
-    clearTables: function (tableType) {
-        $("div[type=" + tableType + "]").each(function (index) {
-            var id = $(this).attr("table");
-            this.clrearTable(id);
-        });
-    },
-
-    getTablesData: function (type) {
-        var tablesData = {};
-        $("div[type=" + type + "]").each(function (index) {
-            var id = $(this).attr("table");
-            var dt = $("#" + id).DataTable();
-            var tdata = dt.rows().data().toArray();
-            tablesData[id] = tdata;
-        });
-        return tablesData;
-    },
-
     getTableSettings: function () {
         return {
             "fnDrawCallback": function (oSettings) {
                 $(".dataTable").parent().css({"white-space": "nowrap", "overflow-x": "auto"});
             },
-            dom: 'Bfrtip',
-            buttons: ['csv'],
             "ordering": true,
             "order": [[1, "asc"]],
             columns: [
                 {name: 'id'},
-                {name: 'Name'},
-                {name: 'Group'}
+                {name: 'Group Name'},
+                {name: 'Total License Count'},
+                {name: 'Members'},
+                {name: 'Remaining License Count'},
+                {name: 'Context'}
             ],
             columnDefs: [
                 {
@@ -64,7 +34,7 @@ var tableUtils = {
                     "searchable": false
                 },
                 {
-                    "targets": [1, 2],
+                    "targets": [1, 2, 3, 4, 5],
                     "visible": true,
                     "searchable": true
                 }
@@ -76,31 +46,37 @@ var tableUtils = {
         var settings = tableUtils.getTableSettings();
         $("#" + id).DataTable(settings);
         tableUtils.populateTableData(id);
-        tableUtils.addButtonActions(id);
     },
 
     refreshTable: function (id) {
-        $("#" + id).DataTable().ajax.reload(null, false);
+        tableUtils.populateTableData(id);
     },
 
     populateTableData: function (id) {
         tableUtils.clearTable(id);
-//        getDataBlocks().then((dataBlocks) => {
-//            for (var dataBlockId in dataBlocks) {
-//                var dataBlock = dataBlocks[dataBlockId];
-//                var blockType = dataBlock.type;
-//                if (blockType === tableType) {
-//                    var actions = tableUtils.getActions();
-//                    var rowData = [dataBlock.id, dataBlock.name, dataBlock.description, actions];
-//                    tableUtils.addTemplateTableRow(id, rowData);
-//                }
-//            }
-//        });
+        tableUtils.getLicenseData().then(function(data) {
+            if (data && data.length > 0) {
+                tableUtils.addTableData(id, data);
+            }
+        }).catch(function(error) {
+            console.error("Error loading license data:", error);
+        });
     },
-    
+
     getLicenseData: function () {
-        
+        return new Promise(function(resolve, reject) {
+            $.ajax({
+                url: getUrl("api/getLicenseData"),
+                method: "GET",
+                dataType: "json",
+                success: function(response) {
+                    resolve(response || []);
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX error:", status, error);
+                    reject(error);
+                }
+            });
+        });
     }
-
-
 };
