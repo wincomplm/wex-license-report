@@ -1,0 +1,94 @@
+trigger: none
+pr: none
+
+resources:
+  repositories:
+    - repository: ci-wex-build
+      type: github
+      endpoint: ci-wex-build
+      name: wincomplm/ci-wex-build
+
+pool:
+  vmImage: windows-latest
+
+variables:
+  - group: EDK Build Settings
+
+jobs:
+  - job: BuildExtension
+    displayName: Build Extension Suite
+
+    steps:
+      - checkout: self
+      - checkout: ci-wex-build
+
+      - task: JavaToolInstaller@0
+        displayName: 'Use Java 21'
+        inputs:
+          versionSpec: 21
+          jdkArchitectureOption: x64
+          jdkSourceOption: PreInstalled
+
+      - task: MavenAuthenticate@0
+        inputs:
+          artifactsFeeds: "wincomplm-products"
+
+      - task: DownloadPipelineArtifact@2
+        displayName: "Get nvd cache"
+        inputs:
+          buildType: 'specific'
+          project: '666bc1bb-6a26-4b5b-8aa9-63c78b3bb90d'
+          definition: '358'
+          buildVersionToDownload: 'latest'
+          targetPath: '$(USERPROFILE)'
+
+      - task: DownloadPipelineArtifact@2
+        displayName: "Get wincom cache"
+        inputs:
+          buildType: 'specific'
+          project: '666bc1bb-6a26-4b5b-8aa9-63c78b3bb90d'
+          definition: '359'
+          buildVersionToDownload: 'latest'
+          targetPath: '$(USERPROFILE)'
+
+      - task: Maven@4
+        displayName: "Build $(familyName) 13.0.1"
+        inputs:
+          mavenPomFile: '$(Build.SourcesDirectory)\$(suiteName)\pom.xml'
+          mavenOptions: '-Xmx3072m --add-opens java.base/java.lang=ALL-UNNAMED'
+          options: "-P 13.0.1 -DnvdApiKey=$(nvd-api-key) -DossIndexUsername=$(ossIndexUser) -DossIndexPassword=$(ossIndexAPIKey) -Djar.sign=false -Dwex.sign=true -Denv.ZKM_HOME=$(Build.SourcesDirectory)/ci-wex-build/zkm"
+          goals: "clean install"
+
+      - task: CopyFiles@2
+        displayName: 'Copy $(familyName) 13.0.1 to staging area'
+        inputs:
+          SourceFolder: '$(Build.SourcesDirectory)\$(suiteName)'
+          Contents: '**/*.wex'
+          TargetFolder: '$(build.artifactstagingdirectory)/wex'
+
+      - task: PowerShell@2
+        displayName: "Upload $(familyName) to teams"
+        inputs:
+          targetType: filePath
+          filePath: "$(Build.SourcesDirectory)/ci-wex-build/build/uploadToSharePointFilePath.ps1"
+          arguments: '-SPVersion "Online" -SPUsername $(sp.user) -SPPassword $(sp.pwd) -SPURL "https://wincomconsulting.sharepoint.com/sites/WexProducts/" -SPFolder "Documentos compartidos/$(teams-folder)/Latest" -Folder $(build.artifactstagingdirectory)/wex'
+
+      - task: DeleteFiles@1
+        inputs:
+          SourceFolder: "$(build.artifactstagingdirectory)"
+          Contents: "**/*.wex"
+
+      - task: CopyFiles@2
+        displayName: "Move to staging area (report)"
+        inputs:
+          SourceFolder: '$(Build.SourcesDirectory)\$(suiteName)'
+          Contents: "**/*.security.pdf"
+          TargetFolder: "$(build.artifactstagingdirectory)/reports"
+          OverWrite: true
+
+      - task: PowerShell@2
+        displayName: "Upload security report to teams"
+        inputs:
+          targetType: filePath
+          filePath: "$(Build.SourcesDirectory)/ci-wex-build/build/uploadToSharePointFilePath.ps1"
+          arguments: '-SPVersion "Online" -SPUsername $(sp.user) -SPPassword $(sp.pwd) -SPURL "https://wincomconsulting.sharepoint.com/sites/PTCDevSecOps-External/" -SPFolder "Documentos compartidos/Reports" -Folder $(build.artifactstagingdirectory)'
