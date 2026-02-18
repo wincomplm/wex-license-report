@@ -15,11 +15,10 @@ package com.wincomplm.wex.license.report.impl.api;
 
 import com.wincomplm.wex.kernel.impl.annotations.WexComponent;
 import com.wincomplm.wex.kernel.impl.annotations.WexMethod;
-import com.wincomplm.wex.license.report.impl.model.LicenseGroupDto;
+import com.wincomplm.wex.license.report.impl.model.LicenseGroupData;
 import com.wincomplm.wex.license.report.impl.service.LicenseReportService;
 import java.util.List;
 import wt.util.WTException;
-import com.wincomplm.wex.security.commons.impl.access.WexAdminCheckAccess; 
 
 /**
  *
@@ -35,25 +34,17 @@ public class LicenseReportAPI {
     }
 
     @WexMethod(name = "get-license-data", description = "Get all ePLM license group data")
-    public List<LicenseGroupDto> getLicenseData() throws WTException {        
-        if (!WexAdminCheckAccess.instance.isSiteOrBusinessAdmin()) {
-            throw new WTException("getLicenseData() EXCEPTION: -> User is not an Administrator.");
-        }
-
+    public List<LicenseGroupData> getLicenseData() throws WTException {
         return service.fetchLicenseGroups();
     }
 
     @WexMethod(name = "get-license-data-json", description = "Get all ePLM license group data as JSON")
     public String getLicenseDataAsJson() throws WTException {
-        if (!WexAdminCheckAccess.instance.isSiteOrBusinessAdmin()) {
-            throw new WTException("getLicenseData() EXCEPTION: -> User is not an Administrator.");
-        }
-
-        List<LicenseGroupDto> data = getLicenseData();
+        List<LicenseGroupData> data = getLicenseData();
         return toJsonArray(data);
     }
 
-    private String toJsonArray(List<LicenseGroupDto> dataList) {
+    private String toJsonArray(List<LicenseGroupData> dataList) {
         if (dataList == null || dataList.isEmpty()) {
             return "[]";
         }
